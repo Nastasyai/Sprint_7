@@ -1,21 +1,35 @@
 package order;
 
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Test;
 
-public class listOrders {
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static java.net.HttpURLConnection.HTTP_OK;
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+public class ListOrders {
     private final OrderResponse check = new OrderResponse();
-    OrderClient orderClient;
-    OrderResponse orderResponse;
+    Response orderResponse;
     private final OrderClient client = new OrderClient();
+    Order order;
 
     @Test
     @DisplayName("Получение списка заказов")
         public void getOrderList() {
         ValidatableResponse response = client.getOrderList();
         check.statusCodeIsOk(response);
-        }
+        orderResponse = response.extract().body().as(Response.class);
+        assertEquals("The status code is invalid", HTTP_OK);
+        assertNotNull("The list of orders is not provided", order);
+    }
 
     @Test
     //@DisplayName("Создание заказа")

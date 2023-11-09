@@ -1,7 +1,5 @@
 package order;
 
-import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +49,7 @@ public class ParametrizationCreateOrder {
 
     @Test
     //@DisplayName("Параметризованный тест для создания заказа")
-    public void ParametrizationCreateOrderTest() {
+    public void parametrizationCreateOrderTest() {
         var order = new Order(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, colour);
         ValidatableResponse response = client.createOrder(order);
         check.assertCreatedOrder(response);
